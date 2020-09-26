@@ -1,4 +1,5 @@
 import React from 'react'
+import Rainbow from '../hoc/Rainbow'
 
 const Results = () => {
     return (
@@ -8,4 +9,4 @@ const Results = () => {
     )
 }
 
-export default Results
+export default Rainbow(Results)
