@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Teams from './components/Teams'
 import Tournaments from './components/Tournaments'
 import Results from './components/Results'
-
+import Team from './components/Team'
 
 class App extends Component {
 
@@ -13,9 +13,12 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Navbar />
-          <Route exact path="/" component={Teams} />
-          <Route path="/tournaments" component={Tournaments} />
-          <Route path="/results" component={Results} />
+          <Switch>
+            <Route exact path="/" component={Teams} />
+            <Route path="/tournaments" component={Tournaments} />
+            <Route path="/results" component={Results} />
+            <Route path="/:team_id" component={Team} />
+          </Switch>
         </div>
       </BrowserRouter>
     );
