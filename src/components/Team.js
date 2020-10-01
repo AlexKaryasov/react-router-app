@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
 
 class Team extends Component {
-    state = {
-        team: null
-    }
-
     render() {
-        let team = this.state.team ? (
+        let team = this.props.team ? (
             <div className="center">
-                <h4>{this.state.team.title}</h4>
-                <p>{this.state.team.body}</p>
+                <h4>{this.props.team.title}</h4>
+                <p>{this.props.team.rankings}</p>
             </div>
         ) :
             (
@@ -24,17 +20,13 @@ class Team extends Component {
             </div>
         )
     }
-
-    componentDidMount() {
-        let id = this.props.match.params.team_id
-        axios.get('https://jsonplaceholder.typicode.com/posts/' + id)
-            .then(response => {
-                this.setState({
-                    team: response.data
-                })
-            })
-    }
-
 }
 
-export default Team;
+const mapStateToProps = (state, ownProps) => {
+    let id = ownProps.match.params.team_id
+    return {
+        team: state.teams.find(team => team.id == id)
+    }
+}
+
+export default connect(mapStateToProps)(Team);
