@@ -2,11 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class Team extends Component {
+    handleClick = () => {
+        this.props.deleteTeam(this.props.team.id)
+        this.props.history.push('/')
+    }
+
     render() {
         let team = this.props.team ? (
             <div className="center">
                 <h4>{this.props.team.title}</h4>
                 <p>{this.props.team.rankings}</p>
+                <div className="center">
+                    <button className="btn red" onClick={this.handleClick}>Delete Team</button>
+                </div>
             </div>
         ) :
             (
@@ -25,8 +33,14 @@ class Team extends Component {
 const mapStateToProps = (state, ownProps) => {
     let id = ownProps.match.params.team_id
     return {
-        team: state.teams.find(team => team.id == id)
+        team: state.teams.find(team => team.id === id)
     }
 }
 
-export default connect(mapStateToProps)(Team);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteTeam: (id) => dispatch({ type: "DELETE_TEAM", id: id })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Team);
