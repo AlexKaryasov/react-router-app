@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {deleteTeam} from '../actions/TeamActions'
 
 class Team extends Component {
     handleClick = () => {
@@ -39,7 +40,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteTeam: (id) => dispatch({ type: "DELETE_TEAM", id: id })
+        deleteTeam: (id) => dispatch(deleteTeam(id))
     }
 }
 
